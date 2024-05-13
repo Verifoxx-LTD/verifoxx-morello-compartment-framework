@@ -1,4 +1,5 @@
-// Implement CCompartmentLibs
+// Copyright (C) 2024 Verifoxx Limited
+// Implements CCompartmentLibs
 #include <sstream>
 
 #include "CCompartmentLibs.h"
@@ -7,6 +8,7 @@
 #include "CCapMgrLogger.h"
 using namespace CapMgr;
 
+// DT_THISPROCNUM needed by link-internal.h
 #ifndef DT_THISPROCNUM
 #define DT_THISPROCNUM DT_AARCH64_NUM
 #endif
@@ -20,7 +22,7 @@ CCompartmentLibs::CCompartmentLibs(const std::string& so_name, const Capability 
 
     if (load_new_linkmap)
     {
-        // Create using new link map if specified
+        // Create using new link map (new namespace) if specified
         if (!(m_dll_handle = dlmopen(LM_ID_NEWLM, so_name.c_str(), RTLD_NOW | RTLD_LOCAL)))
         {
             strstr << "Failed dlmopen() " << so_name << " : " << dlerror();
@@ -41,7 +43,6 @@ CCompartmentLibs::CCompartmentLibs(const std::string& so_name, const Capability 
 
     // parse link map for all dependent libraries - can throw
     // Returns number loaded.  We expect at least one (the DLL we opened).
-
     auto numloaded = ParseLinkMap(so_name, base_cap, fixup_cap);
     
     if (numloaded < 1)

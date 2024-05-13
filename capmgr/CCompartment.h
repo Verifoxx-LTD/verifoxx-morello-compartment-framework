@@ -1,3 +1,4 @@
+// Copyright (C) 2024 Verifoxx Limited
 // CCompartment: Information about the compartment
 
 #ifndef _CCOMPARTMENT_H__
@@ -20,7 +21,7 @@ CHERI_PERM_GLOBAL;
 // Compartment execution needs load permissions for PC relative addressing
 constexpr size_t kCompartmentExecPerms =
 CHERI_PERM_LOAD | CHERI_PERM_LOAD_CAP | ARM_CAP_PERMISSION_MUTABLE_LOAD |
-CHERI_PERM_EXECUTE | CHERI_PERM_GLOBAL;// | ARM_CAP_PERMISSION_EXECUTIVE;   // TO BE REMOVED
+CHERI_PERM_EXECUTE | CHERI_PERM_GLOBAL;
 
 constexpr size_t kCompartmentSealerPerms =
 CHERI_PERM_SEAL | CHERI_PERM_UNSEAL;

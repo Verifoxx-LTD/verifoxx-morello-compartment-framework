@@ -1,7 +1,8 @@
-/* example_capmgr_service_api: Example / Demo API implemented by a capability manager, to provide services for the compartment
-* The compartment, running in restricted, cannot access system or native calls.
-* To allow this the capability manager provides "services" and presents an API which can be used by compartment library functions
-*/
+/* Copyright (C) 2024 Verifoxx Limited
+ * example_capmgr_service_api: Example / Demo API implemented by a capability manager, to provide services for the compartment
+ * The compartment, running in restricted, cannot access system or native calls.
+ * To allow this the capability manager provides "services" and presents an API which can be used by compartment library functions
+ */
 
 #ifndef _EXAMPLE_CAPMGR_SERVICE_API__
 #define _EXAMPLE_CAPMGR_SERVICE_API__

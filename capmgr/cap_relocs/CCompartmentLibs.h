@@ -1,3 +1,4 @@
+// Copyright (C) 2024 Verifoxx Limited
 // CCompartmentLibs: Operations for handling the fix up of shared objects loaded for the compartment.
 
 #ifndef __CCOMPARTMENTLIBS_H_

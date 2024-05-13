@@ -1,3 +1,4 @@
+// Copyright (C) 2024 Verifoxx Limited
 // capmgr_services.h: Compartment callback to provide capability manager services
 
 #ifndef _CAPMGR_SERVICES_H__

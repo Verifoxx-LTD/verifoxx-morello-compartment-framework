@@ -1,3 +1,4 @@
+// Copyright (C) 2024 Verifoxx Limited
 // CRelocationTable: Virtual and actual classes for different types of relocation table info.
 
 #ifndef __CRELOCATIONTABLE_H_
@@ -35,11 +36,11 @@ protected:
     // Need to find out if RELA or REL
     const CDynamicSection& m_dynsec;
     elfptr_t m_base;                    // Base address
-    const Capability m_fixup_cap;       // Capability to use for fixup addresses (should have range of ALL shared objects)
 
     virtual Range GetRelTableRange(size_t& elem_size) const = 0; // Range for this reltable
     virtual bool IsRela() const = 0;            // True means this is a relA table, false is rel
     const std::string m_tabname;
+    const Capability m_fixup_cap;       // Capability to use for fixup addresses (should have range of ALL shared objects)
 
     Range CheckAndGetRange() const;
 

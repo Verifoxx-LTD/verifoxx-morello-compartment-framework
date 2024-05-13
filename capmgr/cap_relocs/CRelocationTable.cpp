@@ -1,3 +1,4 @@
+// Copyright (C) 2024 Verifoxx Limited
 // Implements CRelocationTable
 
 #include <cheriintrin.h>
@@ -12,6 +13,7 @@
 
 using namespace CapMgr;
 
+// Ref Morello Aarch64 ABI for the below
 const std::map< Elf64_Xword, std::string> CRelocationTable::m_reloc_id_map = {
     {R_MORELLO_CAPINIT, "R_MORELLO_CAPINIT"},
     {R_MORELLO_GLOB_DAT, "R_MORELLO_GLOB_DAT"},

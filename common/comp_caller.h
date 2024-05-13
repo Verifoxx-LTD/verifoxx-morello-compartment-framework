@@ -1,3 +1,4 @@
+// Copyright (C) 2024 Verifoxx Limited
 // Compartment Caller: Calls compartment from capability manager, or capability manager service from compartment
 
 #ifndef _COMP_CALLER_H__

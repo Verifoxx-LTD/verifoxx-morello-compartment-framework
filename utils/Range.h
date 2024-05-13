@@ -1,3 +1,4 @@
+// Copyright (C) 2024 Verifoxx Limited
 // Range: Simple range structure type
 
 #ifndef __RANGE_H_
@@ -18,7 +19,13 @@ struct Range
 
     size_t Size() const
     {
-        return top > base ? top - base : 0;
+        if (top > base)
+        {
+            uintptr_t tmp = top;    // This construct
+            tmp -= base;            // avoid source of provenance issues
+            return tmp;
+        }
+        return 0;
     }
 
     bool Intersects(const Range& other) const

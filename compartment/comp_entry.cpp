@@ -1,4 +1,5 @@
-// Compartment entry in resticted
+// Copyright (C) 2024 Verifoxx Limited
+// Compartment entry point and function dispatcher, runs in PE resticted state
 
 #include <iostream>
 #include <cstdlib>

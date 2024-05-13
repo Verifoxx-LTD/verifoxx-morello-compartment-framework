@@ -1,3 +1,4 @@
+// Copyright (C) 2024 Verifoxx Limited
 // Implements capability manager services callback
 
 #include <cheriintrin.h>

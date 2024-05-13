@@ -1,3 +1,4 @@
+// Copyright (C) 2024 Verifoxx Limited
 // Defines needed in asm and C, both compartments and capability manager
 
 #ifndef _COMP_COMMON_ASM_H__

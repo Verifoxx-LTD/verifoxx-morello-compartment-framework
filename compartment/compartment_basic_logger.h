@@ -1,7 +1,8 @@
-/* Very basic C logger for the compartment
-* IMPORTANT: As printf() is a system call, this should involve a callback to the capability manager.
-* Currently, system calls are still available from restricted therefore this still works (for now!)
-*/
+/* Copyright (C) 2024 Verifoxx Limited
+ * Very basic C logger for the compartment - Example code.
+ * IMPORTANT: As printf() is a system call, this should involve a callback to the capability manager.
+ * Currently, system calls are still available from restricted therefore this still works (for now!)
+ */
 
 #ifndef _COMPARTMENT_BASIC_LOGGER_H__
 #define _COMPARTMENT_BASIC_LOGGER_H__

@@ -1,3 +1,4 @@
+// Copyright (C) 2024 Verifoxx Limited
 // CSharedObject.h: Declaration for the shared object handling class, which processes ELF program headers
 
 #ifndef __CSHARED_OBJECT_H_
@@ -46,7 +47,7 @@ public:
     CSharedObject() {}
     // fullcap is a capability with needed permissions - used to construct base
     CSharedObject(const std::string& so_name, const Capability& base_addr) :
-        m_name_full(so_name), m_base(base_addr), m_page_size(getpagesize()) {}
+        m_base(base_addr), m_name_full(so_name), m_page_size(getpagesize()) {}
 
     // Load phdr data
     // Fixup cap is a capability which will be used to derive all the fixed up caabilities

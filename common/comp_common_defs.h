@@ -1,3 +1,4 @@
+// Copyright (C) 2024 Verifoxx Limited
 // Common definitions needed by compartments and the capability manager
 
 #ifndef _COMP_COMMON_H__

@@ -1,3 +1,4 @@
+// Copyright (C) 2024 Verifoxx Limited
 // CDynamicSection: Represents the dynamic section of the ELF
 
 #ifndef __CDYNAMICSECTION_H_

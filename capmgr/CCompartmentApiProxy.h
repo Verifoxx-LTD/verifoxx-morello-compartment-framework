@@ -1,3 +1,4 @@
+// Copyright (C) 2024 Verifoxx Limited
 // CCompartmentApiProxy: Proxy for API calls which are implemented in the compartment
 
 #ifndef _CCOMPARTMENT_API_PROXY_H__

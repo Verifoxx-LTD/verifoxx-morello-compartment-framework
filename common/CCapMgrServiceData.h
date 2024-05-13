@@ -1,3 +1,4 @@
+// Copyright (C) 2024 Verifoxx Limited
 // CapMgrServiceData classes supply arguments to callback from compartment to execute services
 
 #ifndef _CAPMGRSERVICE_DATA_H__
@@ -22,8 +23,8 @@ typedef enum
 class alignas(__BIGGEST_ALIGNMENT__) CCapMgrServiceData
 {
 public:
-    void* fp;                           // Function pointer to the capability manager function to be called
     ServiceCall_t       call_type;      // Which derived class it is
+    void* fp;                           // Function pointer to the capability manager function to be called
 
     CCapMgrServiceData(ServiceCall_t call_type_) : call_type(call_type_), fp(nullptr) {}
     virtual ~CCapMgrServiceData() {}

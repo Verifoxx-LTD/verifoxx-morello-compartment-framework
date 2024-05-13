@@ -1,7 +1,8 @@
+// Copyright (C) 2024 Verifoxx Limited
+// Table of service callback function pointers in the capability manager
+
 #ifndef _CAPMGR_SERVICE_FUNCTION_TYPES_H__
 #define _CAPMGR_SERVICE_FUNCTION_TYPES_H__
-
-// Table of service callback function pointers in the capability manager
 
 #ifdef __cplusplus
 extern "C"
@@ -24,6 +25,5 @@ extern "C"
 using ServiceFunctionTable = std::map<std::string, void*>;
 
 #endif
-
 
 #endif /* _CAPMGR_SERVICE_FUNCTION_TYPES_H__ */

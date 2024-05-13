@@ -1,3 +1,4 @@
+// Copyright (C) 2024 Verifoxx Limited
 // shared_object_common: Common header for capability managing functionality
 
 #ifndef __SHARED_OBJECT_COMMON_H_

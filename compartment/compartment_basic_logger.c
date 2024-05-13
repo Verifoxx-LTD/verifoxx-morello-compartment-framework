@@ -1,4 +1,6 @@
-// Implement a compartment_basic_logger
+// Copyright (C) 2024 Verifoxx Limited
+// Implement a compartment_basic_logger.  Example code.
+
 #include <stdio.h>
 #include <stdarg.h>
 

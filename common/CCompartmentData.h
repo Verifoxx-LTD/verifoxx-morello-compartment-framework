@@ -1,3 +1,4 @@
+// Copyright (C) 2024 Verifoxx Limited
 // CompartmentData classes are used to transfer the arguments for functions to call in the compartment.
 // Each compartment API call needs a corresponding class in this file.
 
@@ -37,9 +38,8 @@ public:
 
     const ServiceFunctionTable* service_func_table; // Table for capability manager service callback functions
 public:
-    CCompartmentData(CompCall_t call_type) : comp_call_type(call_type),
-        comp_exit_fp(nullptr), fp(nullptr),
-        capmgr_service_fp(nullptr) {}
+    CCompartmentData(CompCall_t call_type) : comp_exit_fp(nullptr), capmgr_service_fp(nullptr), 
+        fp(nullptr), comp_call_type(call_type) {}
 
     virtual ~CCompartmentData() {}
 };
@@ -109,4 +109,3 @@ public:
 };
 
 #endif /* _COMPARTMENT_DATA_H__ */
-

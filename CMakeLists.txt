@@ -1,4 +1,5 @@
-# Copyright (C) 2023 Verifoxx Limited.  All rights reserved.
+# Copyright (C) 2024 Verifoxx Limited.  All rights reserved.
+# CMakeLists to build the capability manager and compartment library for the example
 cmake_minimum_required (VERSION 3.19)
 
 project("compartment-framework" LANGUAGES C CXX ASM)
@@ -35,6 +36,7 @@ if ( NOT DEFINED CHERI_GNU_TOOLCHAIN_DIR OR NOT CHERI_GNU_TOOLCHAIN_DIR )
 	message(FATAL_ERROR "Valid toolchain has not been selected - cannot continue")
 endif ()
 
+# Only Gnu toolchain supported currently
 message(STATUS "*** GNU TOOLCHAIN SELECTED ***")
 
 # Search paths

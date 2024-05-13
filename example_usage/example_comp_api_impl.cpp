@@ -1,6 +1,7 @@
-/* example_comp_api_impl: Library functions which run in the compartment, called from capability manager
-* These may make service callbacks for system calls inside the capability manager
-*/
+/* Copyright (C) 2024 Verifoxx Limited
+ * example_comp_api_impl: Library functions which run in the compartment, called from capability manager
+ * These may make service callbacks for system calls inside the capability manager
+ */
 
 #include <cstdlib>
 #include <cstring>
@@ -34,7 +35,7 @@ extern "C" char* example_copy_string_to_heap(const char* str)
     if (mem_buff)
     {
         LOG_DEBUG("example_copy_string_to_heap: Allocated memory ok!");
-        strncpy(mem_buff, str, sz);
+        strcpy(mem_buff, str);
     }
     LOG_VERBOSE("example_copy_string_to_heap: finished");
     return mem_buff;
@@ -47,7 +48,7 @@ extern "C" bool example_print_heap_string_and_free(char* str, int16_t chars_to_p
     auto sz = strlen(str);
     LOG_FATAL("Print String:");
     
-    auto posn = chars_to_print < sz ? chars_to_print : sz;
+    auto posn = (size_t)chars_to_print < sz ? (size_t)chars_to_print : sz;
     auto c = str[posn];
     str[posn] = '\0';
     printf("%s\n", str);

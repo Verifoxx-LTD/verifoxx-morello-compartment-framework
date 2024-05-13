@@ -1,3 +1,4 @@
+// Copyright (C) 2024 Verifoxx Limited
 // CCompartment Implementation: Information about the compartment
 
 #include <iostream>
@@ -20,7 +21,7 @@
 using namespace std;
 using namespace CapMgr;
 
-// Map of all service functions - @ToDo make trampolines
+// Map of all service functions used in our example - @ToDo make trampolines
 static const ServiceFunctionTable service_func_table =
 {
     {"cheri_malloc", reinterpret_cast<void*>(&cheri_malloc)},
@@ -53,6 +54,7 @@ CCompartment::CCompartment(const CCompartmentLibs *comp_libs, CompartmentId id, 
     void *entry_fn_ptr = m_comp_libs->GetDllSymbolByName(comp_entry_trampoine_function);
     if (!entry_fn_ptr)
     {
+        L_(ERROR) << "Cannot find compartment entry point function!";
         throw CCompartmentException("Cannot find compartment entry point function!");
     }
 
@@ -61,6 +63,8 @@ CCompartment::CCompartment(const CCompartmentLibs *comp_libs, CompartmentId id, 
         .SetBoundsAndAddress(Capability(entry_fn_ptr))
         .SetPerms(kCompartmentExecPerms)
         .SEntry();
+
+    printf("COMP ENTRY = %#p\n", m_comp_entry);
 
     // Return function in executive
     void* exit_fn_void = Capability(reinterpret_cast<uintptr_t>(&CompartmentSwitchReturn));
@@ -106,7 +110,7 @@ void* CCompartment::CreateStack(uint32_t stack_size)
 uintptr_t CCompartment::SetCtpidr()
 {
     // Read ctpidr register that we currently have
-    volatile register uintptr_t c0 asm("c0");
+    register volatile uintptr_t c0 asm("c0");
 
     asm("mrs c0, ctpidr_el0"
         : "+C"(c0)
@@ -134,6 +138,7 @@ uintptr_t CCompartment::CallCompartmentFunction(const std::string& fn_to_call, c
     void* comp_fn = m_comp_libs->GetDllSymbolByName(fn_to_call);
     if (!comp_fn)
     {
+        L_(ERROR) << "CallCompartment: Compartment entry point not found!";
         throw CCompartmentException("Cannot find compartment function implementation!");
     }
 

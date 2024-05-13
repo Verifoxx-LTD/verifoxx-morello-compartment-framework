@@ -1,3 +1,4 @@
+// Copyright (C) 2024 Verifoxx Limited
 #include "comp_common_asm.h"
 
 #define comp_csp		c25
@@ -132,7 +133,7 @@ CompartmentSwitchReturn:
 CompartmentServiceCallbackSwitchReturn:
 	// Capability manager service return to compartment
     // Remove the last stack Frame
-    // Note our "frame" is arranged differently to the compilers
+    // Note our "frame" is arranged differently to the compiler's
     ldr frame_ptr, [frame_ptr]
 	sub stack_ptr, frame_ptr, #COMPDATA_STRUCT_SIZE
 

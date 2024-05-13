@@ -1,3 +1,4 @@
+// Copyright(C) 2024 Verifoxx Limited
 // Helper class to build capabilities
 
 #ifndef _CCAPABILITY__
@@ -67,6 +68,11 @@ public:
     // Note: A little complex which is needed to restict the range to exactly the cap passed in
     Capability& DeriveFromCap(void *p, size_t set_perms=0, size_t clear_perms=0) {
 
+        // Work out final set of permissions we want to apply
+        size_t desired_perms = cheri_perms_get(p);
+        desired_perms |= set_perms;
+        desired_perms &= ~clear_perms;
+
         // If requested, make sure p is within range of existing
         if (cheri_base_get(p) >= cheri_base_get(m_cap) &&
             (cheri_length_get(p) + cheri_base_get(p)) <= (cheri_length_get(m_cap) + cheri_base_get(m_cap)))
@@ -80,9 +86,9 @@ public:
             m_cap = cheri_address_set(m_cap, cheri_address_get(p));
         }
 
-        size_t desired_perms = cheri_perms_get(p);
-        m_cap = cheri_perms_and(m_cap, desired_perms | set_perms);
-        m_cap = cheri_perms_clear(m_cap, clear_perms);
+        // Apply permissions
+        m_cap = cheri_perms_and(m_cap, desired_perms);
+
         if (cheri_is_sentry(p))
         {
             m_cap = cheri_sentry_create(m_cap);

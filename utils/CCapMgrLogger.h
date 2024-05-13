@@ -1,3 +1,4 @@
+// Copyright(C) 2024 Verifoxx Limited
 // Simple logger for capability manager
 
 #ifndef _CCAPMGRLOGGER_H__
@@ -28,7 +29,7 @@ namespace CapMgr
         duration -= s;
         auto ms = duration_cast<milliseconds>(duration);
 
-        snprintf(buf, sizeof(buf), "%02u:%02u:%02u:%03u", h.count(), m.count(), s.count(), ms.count());
+        snprintf(buf, sizeof(buf), "%02ld:%02ld:%02ld:%03ld", h.count(), m.count(), s.count(), ms.count());
 
         return buf;
     }
@@ -93,7 +94,6 @@ namespace CapMgr
 #define L_(level) \
     if (level > Log::Level()) ; \
     else Log().Get(level)
-
 
 }
 #endif /* _CCAPMGRLOGGER_H__ */

@@ -1,3 +1,4 @@
+// Copyright (C) 2024 Verifoxx Limited
 // Trampoline entry point
 
 .extern CompartmentUnwrap

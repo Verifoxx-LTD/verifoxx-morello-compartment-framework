@@ -3,6 +3,7 @@
  * Capability Manager main program which loads compartment library and calls example API functions.
  */
 
+// We use GLIBC internals...
 #ifndef _GNU_SOURCE
 #define _GNU_SOURCE
 #endif
@@ -73,6 +74,7 @@ static bool lib_load_and_fix(const std::string& libname, CCompartmentLibs*& plib
 static bool lib_restore_and_end(CCompartmentLibs* plibs)
 {
 #if CAPMGR_BUILT_STATIC_ENABLE
+    (void)plibs;    // Silence the warning
     L_(VERBOSE) << "No action to revert fixups needed for static build";
     return true;
 #else
@@ -93,7 +95,7 @@ static int print_help(const char *exe_name)
     printf("options:\n");
 
     printf("  --comp-lib=<lib>       Load Shared object (.so) containing code to run in compartment\n");
-    printf("                         Defaults to .\\libiwasm.so\n");
+    printf("                         Defaults to .\\libcompartment.so\n");
 
     printf("  -v=n                   Set log verbose level (0 to 4, default is 2) larger\n"
         "                           level gives higher verbosity.\n");
@@ -109,21 +111,18 @@ std::ostream& operator<<(std::ostream& ostream, const struct example_struct stru
     return ostream;
 }
 
-struct example_struct test_struct { 99, false, '!' };
+
 int main(int argc, char* argv[])
 {
     int32_t ret = -1;
     bool dump_relocation_tables = false;
     int32_t log_verbose_level = (uint32_t)WARNING;
 
-    /* Capability manager addition */
-    std::string comp_lib{"./libcompartment.so"};
-
+    std::string comp_lib{"./libcompartment.so"};    // Test shared object library
 
     /* Process options. */
     for (argc--, argv++; argc > 0 && argv[0][0] == '-'; argc--, argv++) {
         
-        /* Capability Manager Addition */
         if (!strncmp(argv[0], "--comp-lib=", 11)) {
             if (argv[0][11] == '\0')
                 return print_help(argv[0]);
@@ -133,7 +132,7 @@ int main(int argc, char* argv[])
             log_verbose_level = atoi(argv[0] + 3);
 
             // Log level 
-            if (log_verbose_level < 0 || log_verbose_level > (uint32_t)VERBOSE)
+            if (log_verbose_level < 0 || log_verbose_level > (int32_t)VERBOSE)
                 return print_help(argv[0]);
         }
         else if (!strncmp(argv[0], "--dump_tables", 13)) {
@@ -151,7 +150,7 @@ int main(int argc, char* argv[])
 
     L_(ALWAYS) << "Running " << argv[0] << " Examples..." << std::endl;
 
-    /* Capability Manager Support: Load libiwasm and resolve symbol relocations
+    /* Load compartment library and resolve symbol relocations
      * Then create proxy object for compartment calls
      */
     CCompartmentLibs* plibs = nullptr;
@@ -194,7 +193,7 @@ int main(int argc, char* argv[])
     L_(ALWAYS) << "*EXAMPLE ENDS*" << std::endl;
     ret = 0;
 
-    /* Capability manager support - cleanup the relocation symbols*/
+    /* Cleanup the relocation symbols*/
     if (!lib_restore_and_end(plibs))
     {
         L_(ERROR) << "Error unloading compartment library " << comp_lib << std::endl;

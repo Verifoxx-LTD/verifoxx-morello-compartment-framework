@@ -19,6 +19,7 @@ In order to make the framework work properly it is necessary to create some fair
 This does though mean that the framework is (modern) C++ and not C, and so any code that interacts with it must also be C++ (although the bulk of a compartment library can be in C).
 
 This code was inspired by the exercise of porting WAMR (WebAssembly Micro-Runtime) to CHERI.  WAMR comprises a large codebase with very many API functions, which is designed to be loaded as a libary and used from a thin front-end (either user native code or a WAMR provided example executable).  When examining WAMR compartmentalisation it was relealised there was too much code and too many API functions to individually load them into a compartment and so a generic solution of directly loading the WAMR code into a compartment was needed.
+This code builds on some techniques provided in Arm examples for Morello compartmentalisation.
 
 ## Support Platforms and Toolchains
 The framework supports Morello Aarch64 Purecap only.  Hybrid-cap is not supported.

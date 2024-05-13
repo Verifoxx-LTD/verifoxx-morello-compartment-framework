@@ -1,3 +1,4 @@
+// Copyright (C) 2024 Verifoxx Limited
 // example_comp_api: Example / Demo API implemented by a codebase we want to compartmentalise in a library
 
 #ifndef _EXAMPLE_COMP_API__

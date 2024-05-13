@@ -1,3 +1,4 @@
+// Copyright(C) 2024 Verifoxx Limited
 // CCapMgrException: Common exception class
 
 #ifndef __CCAPMGREXCEPTION_H_

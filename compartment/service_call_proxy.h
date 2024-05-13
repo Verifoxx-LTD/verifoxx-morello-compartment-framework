@@ -1,3 +1,4 @@
+// Copyright (C) 2024 Verifoxx Limited
 // Proxy calls for calling capability manager service functions
 
 #ifndef _SERVICECALL_PROXY_H__

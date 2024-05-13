@@ -1,3 +1,4 @@
+# Gnu Toolchain file for cross-compile for morello purecap
 if (NOT DEFINED CMAKE_C_COMPILER)
     set(CMAKE_C_COMPILER "aarch64-none-linux-gnu-gcc")
 endif ()

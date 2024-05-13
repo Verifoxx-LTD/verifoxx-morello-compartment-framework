@@ -1,3 +1,4 @@
+// Copyright (C) 2024 Verifoxx Limited
 // Implements CDynamicSection
 
 #include <cheriintrin.h>
@@ -6,7 +7,7 @@
 #include "CCapMgrException.h"
 
 CDynamicSection::CDynamicSection(elfptr_t base_addr, Elf64_Addr vaddr,
-    Elf64_Xword mem_size, bool dyn_readonly) : m_base(reinterpret_cast<uint8_t*>(base_addr)), m_readonly(dyn_readonly)
+    Elf64_Xword mem_size, bool dyn_readonly) : m_readonly(dyn_readonly), m_base(reinterpret_cast<uint8_t*>(base_addr))
 {
     // Get a pointer to the dynamic area
     auto section_base = reinterpret_cast<uint8_t*>(base_addr);

@@ -1,4 +1,7 @@
- /* example_capmgr_service_api_impl: Capability manager service implementation of the example service callback functions */
+ /* Copyright (C) 2024 Verifoxx Limited
+  * example_capmgr_service_api_impl: Capability manager service implementation of the
+  * example service callback functions
+  */
 
 #include "example_capmgr_service_api.h"
 
