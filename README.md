@@ -169,7 +169,8 @@ You can either run gdb on the morello board, or run gdbserver on the morello boa
       ]
     }
   ]
-}```
+}
+```
 
 Where:
 - *args* are command-line arguments to pass to *cap-mgr*, run *cap-mgr --help* for details
