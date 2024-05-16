@@ -1,4 +1,4 @@
-# VERIFOXX MORELLO COMPARTMENT FRAMEWORK
+# Verifoxx Morello Compartment Framework
 
 This is a framework, and example code to exercise it, which makes it easier to compartmentalise a software library running on Morello.
 The library should implement one or more well-defined APIs which are used by a front-end executable.
@@ -248,9 +248,9 @@ Folders within the project are:
 - main.cpp	: Example main() which parses command args, loads the compartment library and calls into the example compartment API for demo purposes
 - *cmake*   : Build files
 
-### How it Works
+### Architecture, Design and Operational Details
 
-TO DO
+Please refer to the [Architecture and Design PDF](./Verifoxx-Morello-Compartment-Framework-Architecture-and-Design.pdf)
 
 ### How to use with your own APIs
 
