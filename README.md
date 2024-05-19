@@ -20,9 +20,9 @@ In order to make the framework work properly it is necessary to create some fair
 
 This does though mean that the framework is (modern) C++ and not C, and so any code that interacts with it must also be C++ (although the bulk of a compartment library can be in C).
 
-This code was inspired by the exercise of porting [WAMR (WebAssembly Micro-Runtime)](https://github.com/bytecodealliance/wasm-micro-runtime)WAMR to CHERI.  WAMR comprises a large codebase with very many API functions, which is designed to be loaded as a libary and used from a thin front-end (either user native code or a WAMR provided example executable).  When examining WAMR compartmentalisation it was relealised there was too much code and too many API functions to individually load them into a compartment and so a generic solution of directly loading the WAMR code into a compartment was needed.
+This code was inspired by the exercise of porting [WAMR (WebAssembly Micro-Runtime)](https://github.com/bytecodealliance/wasm-micro-runtime) to CHERI.  WAMR comprises a large codebase with very many API functions, which is designed to be loaded as a libary and used from a thin front-end (either user native code or a WAMR provided example executable).  When examining WAMR compartmentalisation it was relealised there was too much code and too many API functions to individually load them into a compartment and so a generic solution of directly loading the WAMR code into a compartment was needed.
 
-This code builds on techniques provided in Arm examples for Morello compartmentalisation as can be found (here)[https://git.morello-project.org/morello/morello-examples/-/tree/main/src/compartments?ref_type=heads] and (here)[https://git.morello-project.org/morello/android/vendor/arm/morello-examples/-/tree/morello/mainline/compartment-demo]
+This code builds on techniques provided in Arm examples for Morello compartmentalisation as can be found [here](https://git.morello-project.org/morello/morello-examples/-/tree/main/src/compartments?ref_type=heads) and [here](https://git.morello-project.org/morello/android/vendor/arm/morello-examples/-/tree/morello/mainline/compartment-demo)
 
 ### Example Usage, Design and Operational Details
 Please refer to the [Architecture and Design PDF](./Verifoxx-Morello-Compartment-Framework-Architecture-and-Design.pdf)
