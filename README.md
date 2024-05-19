@@ -1,4 +1,4 @@
-# Verifoxx Morello Compartment Framework
+# Morello Compartment Framework Example
 
 This is a framework, and example code to exercise it, which makes it easier to compartmentalise a software library running on Morello.
 The library should implement one or more well-defined APIs which are used by a front-end executable.
@@ -8,7 +8,8 @@ The executable is called the "capability manager" and is responsible for loading
 Compartments may require access to system services which are not available to compartmentalised code.  To deal with this, the capability manager can provide a *service callback* API which allows a compartment to call back into the capability manager to carry out some action on behalf of the compartment.  This is handled via the same mechanism, whereby boiler-plate code provides a seamless transition between the compartment and capability manager to service the callback function.
 
 Although many aspects are generic CHERI, this framework is designed for Morello.  All compartment code runs in the restricted PE state and all capability manager code runs in the executive PE state.
-Furthermore this framework is intended for Morello Aarch64 Linux.  All compartment code is built to a dynamic shared object ELF file which is loaded at runtime by a the capability manager exeuctable using *dlopen()*.
+
+This framework was developed on Linux.  All compartment code is built to a dynamic shared object ELF file which is loaded at runtime by a the capability manager exeuctable using *dlopen()*.
 This leads to some complexities because the auxiliary vector for the executable will be used by the loader to resolve any relocations within the shared object file, and hence the compartment will end up with executive permissions.  To resolve this, all symbols are "patched" after loading (this time consuming exercise would be better handled by modifying the loader's library source code).
 
 This has additional restrictions as follows:
@@ -16,21 +17,32 @@ This has additional restrictions as follows:
 - Any libraries, e.g libc, needed by both executable and compartment library must be loaded twice.  Therefore either the executable is built statically, or if it is built dynamically then *dlmopen()* is used to load the library into a separate namespace (static or dynamic compilation is a build option)
 
 In order to make the framework work properly it is necessary to create some fairly repetitive code for each API function to be called in the compartment and for those which must be called back as a capability service.  Unfortunately due to the PE state transition it is not possible to use RTTI (at least, this has not been solved in the time available for this project) and so a form of static type resolution is used.  Consequently, each method call needs a small wrapper class to manage its data arguments although variadic templates are used where possible to make the proxy API calls work.
+
 This does though mean that the framework is (modern) C++ and not C, and so any code that interacts with it must also be C++ (although the bulk of a compartment library can be in C).
 
-This code was inspired by the exercise of porting WAMR (WebAssembly Micro-Runtime) to CHERI.  WAMR comprises a large codebase with very many API functions, which is designed to be loaded as a libary and used from a thin front-end (either user native code or a WAMR provided example executable).  When examining WAMR compartmentalisation it was relealised there was too much code and too many API functions to individually load them into a compartment and so a generic solution of directly loading the WAMR code into a compartment was needed.
-This code builds on some techniques provided in Arm examples for Morello compartmentalisation.
+This code was inspired by the exercise of porting [WAMR (WebAssembly Micro-Runtime)](https://github.com/bytecodealliance/wasm-micro-runtime)WAMR to CHERI.  WAMR comprises a large codebase with very many API functions, which is designed to be loaded as a libary and used from a thin front-end (either user native code or a WAMR provided example executable).  When examining WAMR compartmentalisation it was relealised there was too much code and too many API functions to individually load them into a compartment and so a generic solution of directly loading the WAMR code into a compartment was needed.
 
-## Support Platforms and Toolchains
-The framework supports Morello Aarch64 Purecap only.  Hybrid-cap is not supported.
-Gnu toolchain and GlibC must be used at this time.  This is because the Arm LLVM port is designed to use the Morello MUSL libc port and unfortunately MUSL will not work with the runtime symbol resolution patching because:
+This code builds on techniques provided in Arm examples for Morello compartmentalisation as can be found (here)[https://git.morello-project.org/morello/morello-examples/-/tree/main/src/compartments?ref_type=heads] and (here)[https://git.morello-project.org/morello/android/vendor/arm/morello-examples/-/tree/morello/mainline/compartment-demo]
+
+### Example Usage, Design and Operational Details
+Please refer to the [Architecture and Design PDF](./Verifoxx-Morello-Compartment-Framework-Architecture-and-Design.pdf)
+
+## Supported Platforms and Toolchains
+This codebase supports Morello Aarch64 Purecap only.  Hybrid-cap is not supported.
+
+Only Linux is guaranteed to be supported.
+
+### Toolchains
+GNU toolchain and GlibC must be used at this time.  This is because the Arm LLVM port is designed to use the Morello MUSL libc port and unfortunately MUSL will not work with the runtime symbol resolution patching because:
 1. The designers of MUSL could not see a need for implementing dlopen() in a static executable, and therefore this is not supported
 2. MUSL does not provide an implementation of dlmopen() which must be used in the case that the capability manager is built dynamically
 
 The code is buildable with LLVM/clang, and so if an alternative C standard library providing dynamic loading capability is available then this could be used.
 
+The Arm GNU Toolchain for Morello was used to build all example code: https://developer.arm.com/downloads/-/arm-gnu-toolchain-for-morello-downloads
+
 ## Building on Linux
-The project uses CMake.
+We use CMake.
 A CMakePresets is provided.  This is intended to use with Microsoft Visual Studio, whereby you can remotely cross-compile for Morello on a WSL2 Ubuntu installation.
 Alternatively, you can use the CMakePresets.json directly or provide config flags for use in the CMakeLists.txt.  The following config flags are available:
 - CAPMGR_BUILD_STATIC=1|0          		: Whether to build the capability manager executable static, or dynamic (with runtime dependencies).  Static is preferred unless there are dependencies which are only available dynamically.
@@ -51,7 +63,6 @@ Both of these are purcap only; one will include debug symbols in the build.
 
 ### Building without CMakePresets
 Pass arguments directly to CMake; the following shell commands acheive this:
-
 
 ``` Bash
 mkdir build && cd build
@@ -234,7 +245,7 @@ Performing the install step (e.g "install cap-mgr" from Visual Studio, or *cmake
 By default, <install-dir> will be *${HOME}/install/ARMc64-purecap-debug* or *${HOME}/install/ARMc64-purecap-release*
 
 
-## Operation and Source Code
+## Code Structure
 
 ### Folders
 Folders within the project are:
@@ -247,11 +258,3 @@ Folders within the project are:
 - example_usage/    : Files to implement the example compartment API and example service callback API that exercise the framework
 - main.cpp	: Example main() which parses command args, loads the compartment library and calls into the example compartment API for demo purposes
 - *cmake*   : Build files
-
-### Architecture, Design and Operational Details
-
-Please refer to the [Architecture and Design PDF](./Verifoxx-Morello-Compartment-Framework-Architecture-and-Design.pdf)
-
-### How to use with your own APIs
-
-TO DO
